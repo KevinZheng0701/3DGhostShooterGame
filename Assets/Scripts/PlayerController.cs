@@ -22,10 +22,11 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 dir = transform.TransformDirection(Direction());
-        rb.AddForce(dir * speed);
+        Vector3 dir = transform.TransformDirection(Direction() * speed);
+        rb.AddForce(dir);
     }
 
+    // Function to move the player
     private Vector3 Direction()
     {
         float horizontal = Input.GetAxis("Horizontal");
