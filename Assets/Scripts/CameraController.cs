@@ -60,8 +60,8 @@ public class CameraController : MonoBehaviour
     {
         float z = Input.GetAxis("Mouse ScrollWheel"); // Get the input scroll wheel
         z *= Time.deltaTime * 500f;
-        Vector3 cameraPos = new Vector3(transform.localPosition.x, transform.localPosition.y, z);
-        return cameraPos;
+        Vector3 cameraPosChange = new Vector3(0, 0, z);
+        return cameraPosChange;
     }
 
     // Function to update the z index of the camera
@@ -71,12 +71,12 @@ public class CameraController : MonoBehaviour
         // Clamp to 0 if z is greater than 0
         if (transform.localPosition.z > 0)
         {
-            transform.localPosition = new Vector3(0, 0, 0);
+            transform.localPosition = new Vector3(0, transform.localPosition.y, 0);
         }
         // Clamp to max scroll if it reach beyond the max scroll
         else if (transform.localPosition.z < maxScroll)
         {
-            transform.localPosition = new Vector3(0, 0, maxScroll);
+            transform.localPosition = new Vector3(0, transform.localPosition.y, maxScroll);
         }
     }
 }
