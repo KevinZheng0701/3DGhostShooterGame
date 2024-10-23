@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     // Function to move the player
     private Vector3 Direction()
     {
+        // Get the WASD and arrow direction
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         if (debug)

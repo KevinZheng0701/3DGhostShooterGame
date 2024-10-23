@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Spawner : MonoBehaviour
 {
@@ -33,28 +32,30 @@ public class Spawner : MonoBehaviour
     private void SpawnObject()
     {
         Instantiate(objectPrefab, GetRandomPositionAroundPlayer(), Quaternion.identity);
+        timer = 0;
     }
 
     private Vector3 GetRandomPositionAroundPlayer()
     {
-        Vector3 position = Vector3.zero;
+        Vector3 position = Vector3.up; // Set to the center with one unit up in the y direction
+        // Get left, right, up, and down sector
         float left = Random.Range(0, 2);
         float up = Random.Range(0, 2);
-        if (left == 0)
+        if (left == 1) // Spawn left
         {
-            position.x = Random.Range(playerTransform.position.x - 20, playerTransform.position.x);
-        } else
+            position.x = Random.Range(playerTransform.position.x - 20, playerTransform.position.x - 10);
+        } else // Spawn right
         {
-            position.x = Random.Range(playerTransform.position.x, playerTransform.position.x + 20);
+            position.x = Random.Range(playerTransform.position.x + 10, playerTransform.position.x + 20);
         }
-        if (up == 0)
+        if (up == 1) // Spawn up
         {
-            position.z = Random.Range(playerTransform.position.z - 20, playerTransform.position.z);
-        } else
-        {
-            position.z = Random.Range(playerTransform.position.z, playerTransform.position.z + 20);
+            position.z = Random.Range(playerTransform.position.z + 10, playerTransform.position.z + 20);
         }
-        timer = 0;
+        else // Spawn down
+        {
+            position.z = Random.Range(playerTransform.position.z - 20, playerTransform.position.z - 10);
+        }
         return position;
     }
 }
