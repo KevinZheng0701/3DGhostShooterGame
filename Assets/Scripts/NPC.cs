@@ -17,7 +17,7 @@ public class NPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void FixedUpdate()
@@ -31,5 +31,13 @@ public class NPC : MonoBehaviour
         float deltaZ = targetPlayer.transform.position.z - transform.position.z;
         Vector3 direction = new Vector3(deltaX, 0, deltaZ).normalized * moveSpeed;
         transform.position += direction;
+    }
+
+    private void OnEnterCollision(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("YOU LOSE");
+        }
     }
 }

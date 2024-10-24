@@ -4,32 +4,21 @@ using UnityEngine;
 
 public class ProjectileMovement : MonoBehaviour
 {
-    public float speed = 8; // Speed of projectile
-    public float projectileLife = 10; // Lifetime of the projectile
-    private float projectileCount; // Timer for the projectile
+    public Rigidbody rb; // Rigid body of the projectile
+    public float projectileForce = 8; // Force of projectile
 
     // Start is called before the first frame update
     void Start()
     {
-
+        Vector3 direction = transform.up * projectileForce;
+        direction.y = 0;
+        rb.AddForce(direction);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (projectileCount < projectileLife)
-        { // Projectile is still alive
-            projectileCount += Time.deltaTime; // Reduce the lifetime of the projectile
-        }
-        else
-        { // Timer is up
-            Destroy(gameObject); // Projectile is gone
-        }
-    }
 
-    private void FixedUpdate()
-    {
-        
     }
 
     // Check for collision

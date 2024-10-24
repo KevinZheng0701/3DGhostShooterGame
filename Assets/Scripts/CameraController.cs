@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -35,7 +35,6 @@ public class CameraController : MonoBehaviour
         }
         UpdateRotation();
         UpdateCameraPosition();
-        Debug.DrawRay(transform.position, transform.forward * 10, Color.black);
     }
 
     // Function to get the change in mouse movement
