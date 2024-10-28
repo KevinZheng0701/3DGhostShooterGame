@@ -9,7 +9,6 @@ public class CameraController : MonoBehaviour
     public float lookSpeed; // The speed of the camera movement
     public float cameraLock; // The maximum rotation the camera can move in the up and down movement
     private float cameraPauseTimer; // The time the camera will be locked at the beginning because of the built up in camera view when starting the game
-    public float maxScroll; // The farthest the camera can be from the player in the z direction
     public Transform playerTransform; // The player transform
 
     void Awake()
@@ -34,7 +33,6 @@ public class CameraController : MonoBehaviour
             cameraPauseTimer += Time.deltaTime;
         }
         UpdateRotation();
-        UpdateCameraPosition();
     }
 
     // Function to get the change in mouse movement
@@ -52,30 +50,5 @@ public class CameraController : MonoBehaviour
         cameraView.y = Mathf.Clamp(cameraView.y, -cameraLock, cameraLock); // Make the camera turn up and down without going over 90 degrees
         playerTransform.rotation = Quaternion.Euler(0f, cameraView.x, 0f); // Rotate the the player
         transform.rotation = Quaternion.Euler(-cameraView.y, cameraView.x, 0f); // Rotate the camera
-    }
-
-    // Function to get the change camera z index position based on mouse scroll
-    private Vector3 MouseScroll()
-    {
-        float z = Input.GetAxis("Mouse ScrollWheel"); // Get the input scroll wheel
-        z *= Time.deltaTime * 500f;
-        Vector3 cameraPosChange = new Vector3(0, 0, z);
-        return cameraPosChange;
-    }
-
-    // Function to update the z index of the camera
-    private void UpdateCameraPosition()
-    {
-        transform.localPosition += MouseScroll(); // Update the z position of the camera
-        // Clamp to 0 if z is greater than 0
-        if (transform.localPosition.z > 0)
-        {
-            transform.localPosition = new Vector3(0, transform.localPosition.y, 0);
-        }
-        // Clamp to max scroll if it reach beyond the max scroll
-        else if (transform.localPosition.z < maxScroll)
-        {
-            transform.localPosition = new Vector3(0, transform.localPosition.y, maxScroll);
-        }
     }
 }

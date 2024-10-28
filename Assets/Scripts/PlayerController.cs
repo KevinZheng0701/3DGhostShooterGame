@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour
         if (jump == 1)
         {
             isJumping = true;
-            rb.velocity = Vector3.zero; // Reset the momentum from the previous jump
             rb.AddForce(new Vector3(0, jump, 0) * jumpForce, ForceMode.Impulse); // Add force to make the player jump
         }
     }
