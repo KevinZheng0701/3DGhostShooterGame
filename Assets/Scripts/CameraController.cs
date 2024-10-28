@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked; // Lock the mouse to the center of the screen
-        //Cursor.visible = false; // Hide the cursor
+        Cursor.visible = false; // Hide the cursor
         cameraView = transform.localEulerAngles; // Make the camera point in the direction of the player
     }
 

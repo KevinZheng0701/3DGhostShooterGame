@@ -9,17 +9,19 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     public bool isJumping;
     public Rigidbody rb;
+    public GameManager gameManager;
+    public SceneChanger sceneChanger; // Reference the scene changer
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void FixedUpdate()
@@ -65,5 +67,11 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         isJumping = false;
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            GameDataManager.Instance.timeSurvived = gameManager.timer;
+            sceneChanger.MoveToScene(2);
+        }
     }
+
 }
