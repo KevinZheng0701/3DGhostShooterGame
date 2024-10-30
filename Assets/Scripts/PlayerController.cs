@@ -9,13 +9,13 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     public bool isJumping;
     public Rigidbody rb;
+    public int health;
     public GameManager gameManager;
-    public SceneChanger sceneChanger; // Reference the scene changer
 
     // Start is called before the first frame update
     void Start()
     {
-
+        gameManager.SetUpHealth(health);
     }
 
     // Update is called once per frame
@@ -66,11 +66,13 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         isJumping = false;
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            GameDataManager.Instance.timeSurvived = gameManager.timer;
-            sceneChanger.MoveToScene(2);
-        }
     }
 
+    // Function to take damage
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        Debug.Log(health);
+        gameManager.ReportHealth(health);
+    }
 }

@@ -129,5 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.1
+  damage: 2
+  cooldown: 4
+  timer: 0
   rb: {fileID: 4330099265060708999}
   targetPlayer: {fileID: 0}

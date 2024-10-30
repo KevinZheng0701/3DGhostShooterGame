@@ -6,13 +6,17 @@ public class Spawner : MonoBehaviour
 {
     public GameObject objectPrefab;
     public Transform playerTransform;
+    public Transform topTransform;
+    public Transform rightTransform;
+    public Transform bottomTransform;
+    public Transform leftTransform;
     public float spawnInterval;
     private float timer;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        timer = spawnInterval;
     }
 
     // Update is called once per frame
@@ -29,12 +33,14 @@ public class Spawner : MonoBehaviour
         timer += Time.fixedDeltaTime;
     }
 
+    // Function to spawn the object
     private void SpawnObject()
     {
-        Instantiate(objectPrefab, GetRandomPositionAroundPlayer(), Quaternion.identity);
+        Instantiate(objectPrefab, GetRandomSpawnPosition(), Quaternion.identity);
         timer = 0;
     }
 
+    /*
     private Vector3 GetRandomPositionAroundPlayer()
     {
         Vector3 position = Vector3.up; // Set to the center with one unit up in the y direction
@@ -57,5 +63,24 @@ public class Spawner : MonoBehaviour
             position.z = Random.Range(playerTransform.position.z - 20, playerTransform.position.z - 10);
         }
         return position;
+    }*/
+
+    // Function to spawn at one of the four points
+    private Vector3 GetRandomSpawnPosition()
+    {
+        float index = Random.Range(0, 5);
+        if (index == 0)
+        {
+            return topTransform.position;
+        } else if (index == 1)
+        {
+            return rightTransform.position;
+        } else if (index == 2)
+        {
+            return bottomTransform.position;
+        } else
+        {
+            return leftTransform.position;
+        }
     }
 }

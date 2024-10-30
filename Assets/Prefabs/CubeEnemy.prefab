@@ -97,7 +97,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3228295735722313989
 Rigidbody:
@@ -128,5 +128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.05
+  damage: 1
+  cooldown: 2
+  timer: 0
   rb: {fileID: 3228295735722313989}
   targetPlayer: {fileID: 0}
