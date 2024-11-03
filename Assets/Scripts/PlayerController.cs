@@ -4,24 +4,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool debug;
     public float speed;
     public float jumpForce;
-    public bool isJumping;
+    private bool isJumping;
     public Rigidbody rb;
-    public int health;
+    private int health;
+    public int maxHealth;
+    public AudioSource damageSoundEffect;
     public GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameManager.SetUpHealth(health);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        gameManager.SetUpHealth();
+        health = maxHealth;
     }
 
     void FixedUpdate()
@@ -40,14 +36,6 @@ public class PlayerController : MonoBehaviour
         // Get the WASD and arrow direction
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        if (debug)
-        {
-            Vector3 dir = transform.TransformDirection(new Vector3(horizontal, 0, vertical));
-            Debug.DrawRay(transform.position, dir * 2f, Color.red);
-            Debug.DrawRay(transform.position, rb.velocity, Color.yellow);
-            Debug.DrawRay(transform.position + Vector3.up, transform.forward, Color.black);
-            Debug.DrawRay(transform.position + Vector3.up, transform.right, Color.blue);
-        }
         return new Vector3(horizontal, 0, vertical);
     }
 
@@ -72,7 +60,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        Debug.Log(health);
-        gameManager.ReportHealth(health);
+        damageSoundEffect.Play();
+        gameManager.ReportHealth(health, maxHealth);
     }
 }

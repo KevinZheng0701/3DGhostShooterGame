@@ -7,31 +7,30 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI timerText; // Timer ui
-    public TextMeshProUGUI finalTimerText; // Final timer ui
-    public Slider healthBar;
+    public Image healthBar; // Image for the health bar
 
     // Function to update the timer in the game scene
     public void UpdateTimer(float time)
     {
-        timerText.text = "Time: " + Mathf.Round(time).ToString();
-    }
-
-    // Function to update the time survived in the end scene
-    public void UpdateFinalTimer(float time)
-    {
-        finalTimerText.text = "You survived for " + Mathf.Round(time).ToString() + " seconds!";
+        int hours = Mathf.FloorToInt(time / 60);
+        int minutes = Mathf.FloorToInt(time % 60);
+        if (hours == 0)
+        {
+            hours = 12;
+        }
+        timerText.text = string.Format("{0:00}:{1:00} AM", hours, minutes);
     }
 
     // Set the max health to a certain value
-    public void SetMaxHealth(int health)
+    public void SetMaxHealth()
     {
-        healthBar.maxValue = health; // Set the max health 
-        healthBar.value = health; // Set the health to the max
+        healthBar.fillAmount = 1;
     }
 
     // Set the health bar to a certain value
-    public void SetHealth(int health)
+    public void SetHealth(int health, int maxHealth)
     {
-        healthBar.value = health; // Set the health
+        float percentage = (float)health / (float)maxHealth;
+        healthBar.fillAmount = percentage;
     }
 }

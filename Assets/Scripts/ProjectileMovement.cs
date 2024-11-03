@@ -11,7 +11,6 @@ public class ProjectileMovement : MonoBehaviour
     void Start()
     {
         Vector3 direction = transform.up * projectileForce;
-        direction.y = 0;
         rb.AddForce(direction);
     }
 

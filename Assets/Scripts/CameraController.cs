@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    private Vector3 cameraView; // The direction of the camera
+    public Vector3 cameraView; // The direction of the camera
     public float lookSpeed; // The speed of the camera movement
     public float cameraLock; // The maximum rotation the camera can move in the up and down movement
     private float cameraPauseTimer; // The time the camera will be locked at the beginning because of the built up in camera view when starting the game
     public Transform playerTransform; // The player transform
+    public Transform gunTransform; // The gun transform
 
     void Awake()
     {
@@ -50,5 +51,6 @@ public class CameraController : MonoBehaviour
         cameraView.y = Mathf.Clamp(cameraView.y, -cameraLock, cameraLock); // Make the camera turn up and down without going over 90 degrees
         playerTransform.rotation = Quaternion.Euler(0f, cameraView.x, 0f); // Rotate the the player
         transform.rotation = Quaternion.Euler(-cameraView.y, cameraView.x, 0f); // Rotate the camera
+        gunTransform.localRotation = Quaternion.Euler(0, 90f, 90f - cameraView.y); // Rotate the gun
     }
 }

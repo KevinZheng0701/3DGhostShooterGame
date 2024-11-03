@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
     public float timer; // Timer to keep track how long the player survived
     public UIManager uiManager; // Reference to the ui manager
     public SceneChanger sceneChanger; // Reference to the scene changer
-    public GameDataManager gameDataManager;
 
     // Update is called once per frame
     void Update()
@@ -15,20 +14,29 @@ public class GameManager : MonoBehaviour
         // Update the time
         timer += Time.deltaTime;
         uiManager.UpdateTimer(timer);
-    }
-
-    public void ReportHealth(int health)
-    {
-        uiManager.SetHealth(health);
-        if (health <= 0)
+        if (timer >= 360)
         {
-            gameDataManager.timeSurvived = timer;
-            sceneChanger.MoveToScene(2);
+            Cursor.lockState = CursorLockMode.None; // Unlock the mouse
+            Cursor.visible = true; // Unhide the cursor
+            sceneChanger.MoveToScene(3); // Move to good end scene
         }
     }
 
-    public void SetUpHealth(int health)
+    // Function to update the health of the slider
+    public void ReportHealth(int health, int maxHealth)
     {
-        uiManager.SetMaxHealth(health);
+        uiManager.SetHealth(health, maxHealth);
+        if (health <= 0)
+        {
+            Cursor.lockState = CursorLockMode.None; // Unlock the mouse
+            Cursor.visible = true; // Unhide the cursor
+            sceneChanger.MoveToScene(2); // Move to bad end scene
+        }
+    }
+
+    // Function to set the health of the slider
+    public void SetUpHealth()
+    {
+        uiManager.SetMaxHealth();
     }
 }

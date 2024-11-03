@@ -38,6 +38,7 @@ public class NPC : MonoBehaviour
         float deltaX = targetPlayer.transform.position.x - transform.position.x;
         float deltaZ = targetPlayer.transform.position.z - transform.position.z;
         Vector3 direction = new Vector3(deltaX, 0, deltaZ).normalized * moveSpeed;
+        transform.rotation = Quaternion.LookRotation(direction);
         transform.position += direction;
     }
 

@@ -6,7 +6,6 @@ public class ProjectileLauncher : MonoBehaviour
 {
     public GameObject projectilePrefab; // Get projectile gameobject
     public Transform playerTransform; // Transform of the player
-    public Transform cameraTransform; // Transform of the camera
     public Transform launchPoint; // Position of the launch point
     public Vector3 positionOffset; // Position of the gun relative to the player
     public float cooldown; // Time of the cooldown
@@ -38,7 +37,7 @@ public class ProjectileLauncher : MonoBehaviour
         if (Input.GetAxis("Fire1") == 1) // Detects left mouse button click
         {
             float yRotation = playerTransform.rotation.eulerAngles.y;
-            Instantiate(projectilePrefab, launchPoint.position, Quaternion.Euler(cameraTransform.rotation.eulerAngles.x, yRotation + 90, 90)); // Spawn the projectile
+            Instantiate(projectilePrefab, launchPoint.position, transform.rotation); // Spawn the projectile
             cooldownCount = cooldown; // Set the cooldown timer
         }
     }
