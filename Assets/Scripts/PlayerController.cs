@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
-    public float jumpForce;
-    private bool isJumping;
-    public Rigidbody rb;
-    private int health;
-    public int maxHealth;
-    public AudioSource damageSoundEffect;
-    public GameManager gameManager;
+    public float speed; // Speed of the player
+    public float jumpForce; // Force of the jump
+    private bool isJumping; // Status to check whether player is in the air
+    private int health; // Current health of the player
+    public int maxHealth; // Max health of the player
+    public Rigidbody rb; // Player's Rigidbody component
+    public AudioSource damageSoundEffect; // Sound effect for taking damage
+    public GameManager gameManager; // Reference to the GameManager script
 
     // Start is called before the first frame update
     void Start()
@@ -22,41 +22,46 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 dir = transform.TransformDirection(Direction() * speed);
-        rb.AddForce(dir);
+        MovePlayer();
         if (!isJumping)
         {
             Jump();
         }
     }
 
-    // Function to move the player
+    // Calculate movement direction based on player input and rotation
     private Vector3 Direction()
     {
-        // Get the WASD and arrow direction
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        return new Vector3(horizontal, 0, vertical);
+        // Create input direction vector and make it relative to player rotation
+        Vector3 inputDirection = new Vector3(horizontal, 0, vertical);
+        return transform.TransformDirection(inputDirection);
     }
 
-    // Function to make the player jump
+    // Apply movement to player
+    private void MovePlayer()
+    {
+        transform.position += Direction() * speed * Time.fixedDeltaTime;
+    }
+
+    // Handle player jump when Jump key is pressed
     private void Jump()
     {
-        float jump = Input.GetAxis("Jump"); // Get jump input
-        if (jump == 1)
+        if (Input.GetAxis("Jump") == 0) // Jump input detected
         {
             isJumping = true;
-            rb.AddForce(new Vector3(0, jump, 0) * jumpForce, ForceMode.Impulse); // Add force to make the player jump
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); // Apply upward force
         }
     }
 
-    // Make the player reset the jump after touching an object
+    // Reset jump flag when player touches the ground or other objects
     private void OnCollisionEnter(Collision collision)
     {
         isJumping = false;
     }
 
-    // Function to take damage
+    // Reduce health, play damage sound, and update GameManager
     public void TakeDamage(int damage)
     {
         health -= damage;

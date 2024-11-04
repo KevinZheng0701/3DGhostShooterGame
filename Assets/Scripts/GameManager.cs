@@ -11,32 +11,37 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Update the time
         timer += Time.deltaTime;
         uiManager.UpdateTimer(timer);
+        // Check if player has survived long enough for the good ending
         if (timer >= 360)
         {
-            Cursor.lockState = CursorLockMode.None; // Unlock the mouse
-            Cursor.visible = true; // Unhide the cursor
-            sceneChanger.MoveToScene(3); // Move to good end scene
+            EndGame(3); // Transition to good end scene
         }
     }
 
-    // Function to update the health of the slider
+    // Update health on UI and check for game over condition
     public void ReportHealth(int health, int maxHealth)
     {
         uiManager.SetHealth(health, maxHealth);
+        // Trigger game over if health reaches zero
         if (health <= 0)
         {
-            Cursor.lockState = CursorLockMode.None; // Unlock the mouse
-            Cursor.visible = true; // Unhide the cursor
-            sceneChanger.MoveToScene(2); // Move to bad end scene
+            EndGame(2); // Transition to bad end scene
         }
     }
 
-    // Function to set the health of the slider
+    // Initialize maximum health on the UI
     public void SetUpHealth()
     {
         uiManager.SetMaxHealth();
+    }
+
+    // Handle end-game scenarios, unlocking cursor and switching scenes
+    private void EndGame(int sceneIndex)
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        sceneChanger.MoveToScene(sceneIndex);
     }
 }

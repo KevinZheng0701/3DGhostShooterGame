@@ -19,12 +19,6 @@ public class CameraController : MonoBehaviour
         cameraView = transform.localEulerAngles; // Make the camera point in the direction of the player
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {

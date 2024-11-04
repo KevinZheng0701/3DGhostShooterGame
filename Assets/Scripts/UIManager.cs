@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour
     // Set the health bar to a certain value
     public void SetHealth(int health, int maxHealth)
     {
+        // Get the health percentage
         float percentage = (float)health / (float)maxHealth;
         healthBar.fillAmount = percentage;
     }

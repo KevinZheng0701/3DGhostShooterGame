@@ -11,12 +11,6 @@ public class ProjectileLauncher : MonoBehaviour
     public float cooldown; // Time of the cooldown
     private float cooldownCount; // Timer between next fire
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -25,10 +19,9 @@ public class ProjectileLauncher : MonoBehaviour
             cooldownCount -= Time.deltaTime; // Decrease cooldown time
         }
         else
-        { // Cooldown ended
+        {
             ShootProjectile(); // Allows shooting
         }
-        Debug.DrawRay(transform.position, transform.up, Color.blue);
     }
 
     // Allows the player to shoot projectiles
@@ -36,7 +29,6 @@ public class ProjectileLauncher : MonoBehaviour
     {
         if (Input.GetAxis("Fire1") == 1) // Detects left mouse button click
         {
-            float yRotation = playerTransform.rotation.eulerAngles.y;
             Instantiate(projectilePrefab, launchPoint.position, transform.rotation); // Spawn the projectile
             cooldownCount = cooldown; // Set the cooldown timer
         }

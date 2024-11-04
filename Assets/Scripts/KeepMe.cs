@@ -5,6 +5,7 @@ using UnityEngine;
 public class KeepMe : MonoBehaviour
 {
     public KeepMe Instance;
+
     // Called when the scripts are loading
     private void Awake()
     {

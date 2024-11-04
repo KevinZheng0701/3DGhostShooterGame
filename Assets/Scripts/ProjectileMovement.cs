@@ -11,13 +11,7 @@ public class ProjectileMovement : MonoBehaviour
     void Start()
     {
         Vector3 direction = transform.up * projectileForce;
-        rb.AddForce(direction);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        rb.AddForce(direction); // Apply a instant force to the projectile to launch it
     }
 
     // Check for collision

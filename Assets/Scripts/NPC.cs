@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    public float moveSpeed;
+    public float moveSpeed; // Movement speed of the NPC
     public int damage; // Damage the enemy do
     public float cooldown; // Time of the cooldown
     public float timer; // Time of the cooldown
-    public Rigidbody rb;
-    public GameObject targetPlayer;
-    public PlayerController playerControllerScript;
+    public Rigidbody rb; // Rigid body
+    public GameObject targetPlayer; // The target to move towards
+    public PlayerController playerControllerScript; // Reference to the player controller script
 
     // Start is called before the first frame update
     void Start()
@@ -35,11 +35,10 @@ public class NPC : MonoBehaviour
 
     protected virtual void Move()
     {
-        float deltaX = targetPlayer.transform.position.x - transform.position.x;
-        float deltaZ = targetPlayer.transform.position.z - transform.position.z;
-        Vector3 direction = new Vector3(deltaX, 0, deltaZ).normalized * moveSpeed;
-        transform.rotation = Quaternion.LookRotation(direction);
-        transform.position += direction;
+        Vector3 directionToPlayer = (targetPlayer.transform.position - transform.position).normalized;
+        Vector3 moveDirection = directionToPlayer * moveSpeed * Time.fixedDeltaTime;
+        transform.rotation = Quaternion.LookRotation(directionToPlayer); // Rotate towards player
+        transform.position += moveDirection; // Move towards player
     }
 
     private void OnEnterCollision(Collision collision)
@@ -56,7 +55,7 @@ public class NPC : MonoBehaviour
     {
         if (obj.CompareTag("Player") && timer <= 0)
         {
-            timer = cooldown;
+            timer = cooldown; // Reset cooldown timer
             playerControllerScript.TakeDamage(damage);
         }
     }

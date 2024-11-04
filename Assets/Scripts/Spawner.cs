@@ -4,42 +4,32 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject objectPrefab;
-    public Transform[] spawnPositions;
-    public float spawnInterval;
-    private float timer;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    public GameObject objectPrefab; // Prefab to spawn
+    public Transform[] spawnPositions; // Array of spawn points
+    public float spawnInterval = 5f; // Time between spawns in seconds
+    private float spawnTimer; // Tracks time since last spawn
 
     // Update is called once per frame
     void Update()
     {
-        if (timer > spawnInterval)
+        spawnTimer += Time.deltaTime;
+        if (spawnTimer >= spawnInterval)
         {
             SpawnObject();
+            spawnTimer = 0;
         }
     }
 
-    void FixedUpdate()
-    {
-        timer += Time.fixedDeltaTime;
-    }
-
-    // Function to spawn the object
+    // Spawn the object at a random position from the array
     private void SpawnObject()
     {
         Instantiate(objectPrefab, GetRandomSpawnPosition(), Quaternion.identity);
-        timer = 0;
     }
 
-    // Function to spawn at one of the four points
+    // Select a random spawn point from the list
     private Vector3 GetRandomSpawnPosition()
     {
-        int index = Random.Range(0, spawnPositions.Length);
-        return spawnPositions[index].position;
+        int randomIndex = Random.Range(0, spawnPositions.Length);
+        return spawnPositions[randomIndex].position;
     }
 }
