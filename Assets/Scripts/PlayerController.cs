@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
     // Handle player jump when Jump key is pressed
     private void Jump()
     {
-        if (Input.GetAxis("Jump") == 0) // Jump input detected
+        if (Input.GetAxis("Jump") == 1) // Jump input detected
         {
             isJumping = true;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); // Apply upward force
