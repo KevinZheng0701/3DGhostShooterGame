@@ -19,6 +19,12 @@ public class NPC : MonoBehaviour
         playerControllerScript = targetPlayer.GetComponent<PlayerController>();
     }
 
+    // On enable is called when ghost is set active
+    void OnEnable()
+    {
+        timer = 0; // Reset cooldown after ghost is active
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProjectileMovement : MonoBehaviour
 {
     public Rigidbody rb; // Rigid body of the projectile
-    public float projectileForce = 8; // Force of projectile
+    public float projectileForce; // Force of projectile
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,7 @@ public class ProjectileMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy") // Collide with enemy objects
         {
-            Destroy(collision.gameObject); // Destroy the damage object
+            collision.gameObject.SetActive(false); // Destroy the damage object
         }
         Destroy(gameObject); // Destroy the projectile
     }

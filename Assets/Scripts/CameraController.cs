@@ -22,12 +22,15 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cameraPauseTimer < 0.5f)
+        if (cameraPauseTimer > 0.5f)
+        {
+            UpdateRotation();
+        }
+        else
         {
             cameraView = Vector3.ClampMagnitude(cameraView, cameraPauseTimer); // Reduce the change in camera view
             cameraPauseTimer += Time.deltaTime;
         }
-        UpdateRotation();
     }
 
     // Function to get the change in mouse movement

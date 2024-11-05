@@ -7,7 +7,6 @@ public class ProjectileLauncher : MonoBehaviour
     public GameObject projectilePrefab; // Get projectile gameobject
     public Transform playerTransform; // Transform of the player
     public Transform launchPoint; // Position of the launch point
-    public Vector3 positionOffset; // Position of the gun relative to the player
     public float cooldown; // Time of the cooldown
     private float cooldownCount; // Timer between next fire
 
