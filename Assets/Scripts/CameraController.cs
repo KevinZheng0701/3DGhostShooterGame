@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public Vector3 cameraView; // The direction of the camera
     public float lookSpeed; // The speed of the camera movement
     public float cameraLock; // The maximum rotation the camera can move in the up and down movement
     private float cameraPauseTimer; // The time the camera will be locked at the beginning because of the built up in camera view when starting the game
     public Transform playerTransform; // The player transform
     public Transform gunTransform; // The gun transform
+    private Vector3 cameraView; // The direction of the camera
 
     void Awake()
     {
